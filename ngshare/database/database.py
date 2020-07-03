@@ -84,9 +84,14 @@ class User(Base):
         'Import users from JupyterHub'
         user_name = user_model['name']
         user = db.query(User).filter(User.id == user_name).one_or_none()
+        # bigData course needs to created beforehand(by shelling into admin pod and running command)
+        course = db.query(Course).filter(Course.id == 'bigData').one_or_none()
         if user is None:
             user = User(user_name)
             db.add(user)
+            # add user to course
+            if course is not None and user not in course.instructors:
+                course.students.append(user)
             db.commit()
         return user
 

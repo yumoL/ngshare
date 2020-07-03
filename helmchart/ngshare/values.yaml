@@ -4,10 +4,10 @@ fullnameOverride: ""
 
 # Where to pull the ngshare image
 image:
-  repository: libretexts/ngshare
+  repository: yumol/ngshare
   pullPolicy: IfNotPresent
   imagePullSecrets: []
-  tag: 'set-by-chartpress'
+  tag: '0.2'
 
 # Configure the deployment and service
 deployment:

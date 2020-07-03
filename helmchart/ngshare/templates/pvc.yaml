@@ -17,7 +17,7 @@ spec:
   storageClassName: {{ .Values.pvc.storageClassName | quote }}
   {{- end }}
   accessModes:
-    {{- if gt .Values.deployment.replicaCount 1.0 }}
+    {{- if eq .Values.deployment.replicaCount 1.0 }}
     - ReadWriteOnce
     {{- else }}
     - ReadWriteMany
