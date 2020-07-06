@@ -89,7 +89,7 @@ spec:
                 - ALL
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
-            runAsUser: 10175899999
+            runAsUser: 1017589999
       volumes:
         - name: ngshare-pvc
           persistentVolumeClaim:
