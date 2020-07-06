@@ -1,5 +1,6 @@
 FROM jupyterhub/jupyterhub:latest
 COPY . /ngshare/
 RUN pip install /ngshare
-USER 65535:65535
+ARG ID=10175899999
+USER $ID:ID
 ENTRYPOINT ["python3", "-m", "ngshare"]
