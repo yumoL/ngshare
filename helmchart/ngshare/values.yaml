@@ -7,7 +7,7 @@ image:
   repository: yumol/ngshare
   pullPolicy: IfNotPresent
   imagePullSecrets: []
-  tag: '0.6'
+  tag: dev1.1
 
 # Configure the deployment and service
 deployment:
