@@ -10,6 +10,7 @@ import argparse
 import base64
 import binascii
 import datetime
+import pandas as pd
 from collections import namedtuple
 from urllib.parse import urlparse
 
@@ -842,6 +843,23 @@ class UploadDownloadFeedback(MyRequestHandler):
             files=files, timestamp=self.strftime(submission.timestamp)
         )
 
+class GetGrades(MyRequestHandler):
+    '/api/grades/<student_id>'
+
+    def get(self, student_id):
+        columns = ['assignment','duedate','timestamp','student_id','last_name','first_name','email','raw_score','late_submission_penalty','score','max_score']
+        df = pd.read_csv('/srv/ngshare/grades.csv', names=columns)
+        if not self.is_admin():
+            if not self.user.id==student_id:
+                self.json_error(403, "Student can only see their own grades")
+            df = df[df['student_id'] == student_id]
+            df = df[['assignment', 'score', 'max_score']]
+        else:
+            df = df[['assignment', 'student_id', 'score', 'max_score']]
+
+        html = df.to_html(index=False)
+
+        self.json_success(grades_html=html)
 
 class InitDatabase(MyRequestHandler):
     '/initialize-Data6ase'
@@ -935,6 +953,7 @@ class MyApplication(Application):
                 prefix + 'feedback/([^/]+)/([^/]+)/([^/]+)',
                 UploadDownloadFeedback,
             ),
+            (prefix + 'grades/([^/]+)', GetGrades),
             (prefix + 'initialize-Data6ase', InitDatabase),
             ('/healthz', HealthCheckHandler),
         ]

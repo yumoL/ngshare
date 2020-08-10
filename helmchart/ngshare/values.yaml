@@ -4,10 +4,10 @@ fullnameOverride: ""
 
 # Where to pull the ngshare image
 image:
-  repository: yumol/ngshare
+  repository: ngshare
   pullPolicy: IfNotPresent
   imagePullSecrets: []
-  tag: dev1.1
+  tag: grades1.3
 
 # Configure the deployment and service
 deployment:
