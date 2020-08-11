@@ -848,7 +848,7 @@ class GetGrades(MyRequestHandler):
 
     def get(self, student_id):
         columns = ['assignment','duedate','timestamp','student_id','last_name','first_name','email','raw_score','late_submission_penalty','score','max_score']
-        df = pd.read_csv('/srv/ngshare/grades.csv', names=columns)
+        df = pd.read_csv('/srv/ngshare/grades.csv', header=0, names=columns)
         if not self.is_admin():
             if not self.user.id==student_id:
                 self.json_error(403, "Student can only see their own grades")
